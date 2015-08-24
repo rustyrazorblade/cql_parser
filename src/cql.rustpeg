@@ -71,6 +71,7 @@ minus = "-" __
 comma = __ "," __
 delete = "delete" __
 placeholder_old = __ "?" __
+placeholder -> Value = __ "?" __ { Value::Placeholder }
 and = __ "and"i __
 from = __ "from"i __
 where = "where"i  __
