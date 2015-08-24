@@ -56,6 +56,14 @@ fn test_fields() {
         }
     };
 
+    let parsed = cql::fields_or_star("name, age").unwrap();
+    let parsed = cql::fields_or_star("*").unwrap();
+
+    match parsed {
+        Fields::All => (),
+        _ => { panic!("Wrong type returned")}
+    };
+
 }
 
 #[test]

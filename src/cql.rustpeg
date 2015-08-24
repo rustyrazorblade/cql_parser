@@ -103,6 +103,7 @@ fields -> Fields
     { Fields::Named(fields) }
 
 
+#[pub]
 fields_or_star -> Fields
     = fields / star
 
