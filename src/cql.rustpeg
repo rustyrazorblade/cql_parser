@@ -5,9 +5,11 @@ cql_statement -> ParsedCqlStatement
     = select_statement / insert_statement / delete_statement / update_statement
 
 select_statement -> ParsedCqlStatement
-    = select fields:fields_or_star from table:table where_clauses? order_by_clause? limit_clause?
+    = select fields:fields_or_star from table:table where_clauses:where_clauses? order_by_clause? limit_clause?
     {
-        let s = SelectStatement::new(fields, table);
+        let s = SelectStatement::new(fields,
+                                     table,
+                                     where_clauses);
         ParsedCqlStatement::Select(s)
     }
 
@@ -39,7 +41,8 @@ update_statement -> ParsedCqlStatement
         }
 
 #[pub]
-where_clauses = where __ predicates __
+where_clauses -> Vec<Predicate> = where __ predicates __
+    { Vec::new() }
 
 where_clause = where __ predicate __
 
