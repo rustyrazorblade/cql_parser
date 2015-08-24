@@ -115,7 +115,7 @@ using_option -> UsingOption
     = timestamp_clause / ttl_clause
 
 timestamp_clause -> UsingOption
-                = timestamp int_old { UsingOption::Timestamp(1) }
+                = timestamp i:int { UsingOption::Timestamp(i) }
 
 ttl_clause -> UsingOption
     = ttl i:int { UsingOption::TTL(i) }
