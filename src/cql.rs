@@ -16,12 +16,22 @@ pub enum Fields {
 #[derive(Clone, Debug)]
 pub struct Predicate {
     field: String,
-    op: String
+    op: String,
+    val: Variable,
 }
 
 #[derive(Clone, Debug)]
 pub enum Variable {
     Placeholder
+}
+
+#[derive(Clone, Debug)]
+pub enum Value {
+    Int,
+    Float,
+    UUID,
+    Date,
+    Expression(String)
 }
 
 
