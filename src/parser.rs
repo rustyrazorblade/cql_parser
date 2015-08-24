@@ -123,8 +123,10 @@ fn test_simple_update() {
 
 #[test]
 fn test_multiple_where_clauses() {
-    assert!(cql::where_clauses("where k = ? and v = ?").is_ok());
+    let p = cql::where_clauses("where k = ? and v = ?").unwrap();
+    
 }
+
 #[test]
 fn test_update_two_fields() {
     let tmp = cql::cql_statement("update men set bal = ?
