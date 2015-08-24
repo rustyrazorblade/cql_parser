@@ -118,7 +118,7 @@ timestamp_clause -> UsingOption
                 = timestamp int_old { UsingOption::Timestamp(1) }
 
 ttl_clause -> UsingOption
-    = ttl int_old { UsingOption::TTL(0) }
+    = ttl i:int { UsingOption::TTL(i) }
 
 order_by_clause -> String
     = "order" __ "by" __ field __ order_direction?
@@ -157,8 +157,6 @@ int_old
 
 int -> isize
     = [1-9][0-9]* __ { match_str.trim().parse().unwrap() }
-
-int_value -> Value = i:int { Value::Int(i) }
 
 limit_clause -> String
     = __ limit int_old __ { match_str.to_string() }
