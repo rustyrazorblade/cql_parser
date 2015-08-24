@@ -38,11 +38,11 @@ impl InsertStatement {
 
 #[derive(Clone, Debug)]
 pub struct SelectStatement {
-    fields: Vec<String>
+    fields: Fields,
 }
 
 impl SelectStatement {
-    pub fn new() -> SelectStatement {
-        SelectStatement{ fields: Vec::new() }
+    pub fn new(fields: Fields) -> SelectStatement {
+        SelectStatement{ fields: fields }
     }
 }

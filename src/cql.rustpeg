@@ -5,9 +5,9 @@ cql_statement -> ParsedCqlStatement
     = select_statement / insert_statement / delete_statement / update_statement
 
 select_statement -> ParsedCqlStatement
-    = select fields_or_star from table where_clauses? order_by_clause? limit_clause?
+    = select fields:fields_or_star from table where_clauses? order_by_clause? limit_clause?
     {
-        let s = SelectStatement::new();
+        let s = SelectStatement::new(fields);
         ParsedCqlStatement::Select(s)
     }
 
