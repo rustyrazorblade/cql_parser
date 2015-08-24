@@ -27,14 +27,15 @@ pub enum Variable {
 
 #[derive(Clone, Debug)]
 pub struct InsertStatement {
-    fields: Fields
+    fields: Fields,
+    table: String
 }
 
 impl InsertStatement {
     // should merge the fields and the values to a hashmap
-    pub fn new(fields: Fields) -> InsertStatement {
+    pub fn new(fields: Fields, table: String) -> InsertStatement {
 
-        InsertStatement{fields: fields}
+        InsertStatement{fields: fields, table:table}
     }
 }
 
