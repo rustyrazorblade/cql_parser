@@ -10,12 +10,13 @@ select_statement -> ParsedCqlStatement
       from table:table
       where_clauses:where_clauses?
       order_by:order_by_clause?
-      limit_clause?
+      limit:limit_clause?
     {
         let s = SelectStatement::new(fields,
                                      table,
                                      where_clauses,
-                                     order_by);
+                                     order_by,
+                                     limit);
         ParsedCqlStatement::Select(s)
     }
 
@@ -139,7 +140,8 @@ table -> String
 limit = "limit"i __
 int = [1-9][0-9]* __
 
-limit_clause = __ limit int __
+limit_clause -> String
+    = __ limit int __ { match_str.to_string() }
 
 __ = (whitespace / eol)*
 

@@ -68,7 +68,8 @@ impl SelectStatement {
     pub fn new(fields: Fields,
                table: String,
                where_clauses: Option<Vec<Predicate>>,
-               order_by: Option<String> )
+               order_by: Option<String>,
+               limit: Option<String>  )
                -> SelectStatement {
         SelectStatement{ fields: fields, table:table}
     }
