@@ -22,7 +22,7 @@ select_statement -> ParsedCqlStatement
 
 insert_statement -> ParsedCqlStatement
     = "insert" into  table:table __ "(" fields:fields ")" values
-        "(" placeholder ++ ","  ")" __ if_not_exists?
+        "(" placeholder_old ++ ","  ")" __ if_not_exists?
         using_clause?
       {
           let i = InsertStatement::new(fields, table);
@@ -58,7 +58,7 @@ predicates = __ predicate ++ and __
 
 #[pub]
 predicate -> Predicate
-    = field:field op:op placeholder
+    = field:field op:op placeholder_old
     { Predicate::new(field, op) }
 
 op -> String
@@ -70,7 +70,7 @@ plus = "+" __
 minus = "-" __
 comma = __ "," __
 delete = "delete" __
-placeholder = __ "?" __
+placeholder_old = __ "?" __
 and = __ "and"i __
 from = __ "from"i __
 where = "where"i  __
@@ -98,8 +98,8 @@ if = "if"i __
 colon = ":" __
 
 if_clause = if if_condition ++ "and"
-if_condition = (field eq placeholder) /
-                (field "[" field "]" eq placeholder)
+if_condition = (field eq placeholder_old) /
+                (field "[" field "]" eq placeholder_old)
 
 #[pub]
 using_clause -> Vec<UsingOption>
@@ -124,13 +124,13 @@ desc = "desc"i
 order_direction = asc / desc
 
 #[pub]
-assignment = (field eq placeholder) / counter_op
+assignment = (field eq placeholder_old) / counter_op
 
 #[pub]
-counter_op = field eq field (plus / minus) (int_old / placeholder) { () }
+counter_op = field eq field (plus / minus) (int_old / placeholder_old) { () }
 
 #[pub]
-map_literal = lbracket (field colon placeholder ++ comma) rbracket
+map_literal = lbracket (field colon placeholder_old ++ comma) rbracket
 
 #[pub]
 fields -> Fields
