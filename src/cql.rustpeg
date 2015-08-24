@@ -103,8 +103,8 @@ if_condition = (field eq placeholder) /
 
 #[pub]
 using_clause -> Vec<UsingOption>
-             = using using_option ++ "and"i __
-             { Vec::new() }
+             = using options:using_option ++ "and"i __
+             { options }
 
 using_option -> UsingOption
     = (timestamp_clause / ttl_clause)
