@@ -48,7 +48,10 @@ placeholder = __ "?" __
 and = __ "and"i __
 from = __ "from"i __
 where = "where"i  __
-star = __ "*" __
+
+star -> Fields
+    = __ "*" __ { Fields::All }
+
 select =  "select"i __
 field = __ [a-zA-Z0-9]+ __
 values = __ "values"i __
@@ -94,8 +97,9 @@ map_literal = lbracket (field colon placeholder ++ comma) rbracket
 #[pub]
 fields -> Fields
     = (field ++ ",") { Fields::All }
+
 fields_or_star -> Fields
-    = fields / star { Fields::All }
+    = fields / star 
 
 table = [a-zA-Z]+ __
 limit = "limit"i __
