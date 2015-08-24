@@ -12,11 +12,11 @@ select_statement -> ParsedCqlStatement
     }
 
 insert_statement -> ParsedCqlStatement
-    = "insert" into  table __ "(" fields ")" values
+    = "insert" into  table __ "(" fields:fields ")" values
         "(" placeholder ++ ","  ")" __ if_not_exists?
         using_clause?
       {
-          let i = InsertStatement::new();
+          let i = InsertStatement::new(fields);
           ParsedCqlStatement::Insert(i)
       }
 

@@ -27,12 +27,14 @@ pub enum Variable {
 
 #[derive(Clone, Debug)]
 pub struct InsertStatement {
-    fields: Vec<String>
+    fields: Fields
 }
 
 impl InsertStatement {
-    pub fn new() -> InsertStatement {
-        InsertStatement{ fields: Vec::new() }
+    // should merge the fields and the values to a hashmap
+    pub fn new(fields: Fields) -> InsertStatement {
+
+        InsertStatement{fields: fields}
     }
 }
 
