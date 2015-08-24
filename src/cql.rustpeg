@@ -99,7 +99,8 @@ map_literal = lbracket (field colon placeholder ++ comma) rbracket
 
 #[pub]
 fields -> Fields
-    = fields:(field ++ ",") { Fields::Named(fields) }
+    = fields:(field ++ ",")
+    { Fields::Named(fields) }
 
 fields_or_star -> Fields
     = fields / star

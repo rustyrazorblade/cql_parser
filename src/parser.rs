@@ -2,6 +2,8 @@
 
 peg_file! cql("cql.rustpeg");
 
+use cql::*;
+
 fn parse(stmt: &str) -> Result<i64, &str> {
     let result = match cql::cql_statement(stmt) {
         Ok(x) => Ok(0),
@@ -39,7 +41,19 @@ fn test_invalid_selec() {
 
 #[test]
 fn test_fields() {
-    assert!(cql::fields("name, age").is_ok());
+    let parsed = cql::fields("name, age");
+    assert!(parsed.is_ok());
+
+    // should be a Fields enum
+    match parsed.unwrap() {
+        Fields::Named(v) => {
+            assert!(v[0] == "name");
+        },
+        _ => {
+            panic!("Wrong type")
+        }
+    };
+
 }
 
 #[test]
