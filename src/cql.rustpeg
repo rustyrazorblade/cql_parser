@@ -53,7 +53,10 @@ star -> Fields
     = __ "*" __ { Fields::All }
 
 select =  "select"i __
-field -> String = __ [a-zA-Z0-9]+ __ { match_str.to_string() }
+
+field -> String
+    = __ [a-zA-Z0-9]+ __ { match_str.to_string() }
+
 values = __ "values"i __
 update = "update"i __
 set = __ "set"i __
@@ -96,7 +99,7 @@ map_literal = lbracket (field colon placeholder ++ comma) rbracket
 
 #[pub]
 fields -> Fields
-    = (field ++ ",") { Fields::All }
+    = fields:(field ++ ",") { Fields::Named(fields) }
 
 fields_or_star -> Fields
     = fields / star
