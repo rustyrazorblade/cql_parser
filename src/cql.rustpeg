@@ -1,0 +1,110 @@
+use cql::*;
+
+#[pub]
+cql_statement -> ParsedCqlStatement
+    = select_statement / insert_statement / delete_statement / update_statement
+
+select_statement -> ParsedCqlStatement
+    = select fields_or_star from table where_clauses? order_by_clause? limit_clause? { ParsedCqlStatement::Select }
+
+insert_statement -> ParsedCqlStatement
+    = "insert" into  table __ "(" fields ")" values
+        "(" placeholder ++ ","  ")" __ if_not_exists?
+        using_clause?
+      { ParsedCqlStatement::Insert }
+
+delete_statement -> ParsedCqlStatement
+    = delete from table
+      where_clauses
+      { ParsedCqlStatement::Delete }
+
+update_statement -> ParsedCqlStatement
+    = update table
+        using_clause?
+        set assignment ++ comma
+        where_clauses if_clause?
+        { ParsedCqlStatement::Update }
+
+#[pub]
+where_clauses = where __ predicates __
+
+where_clause = where __ predicate __
+
+predicates = __ predicate ++ and __
+
+#[pub]
+predicate = field op placeholder
+
+op = '=' / '<' / '>' / '<=' / '>=' / "contains"i / "contains key"i
+plus = "+" __
+minus = "-" __
+comma = "," __
+delete = "delete" __
+placeholder = __ "?" __
+and = __ "and"i __
+from = __ "from"i __
+where = "where"i  __
+star = __ "*" __
+select =  "select"i __
+field = __ [a-zA-Z0-9]+ __
+values = __ "values"i __
+update = "update"i __
+set = __ "set"i __
+into = __ "into"i __
+using = "using"i __
+if_not_exists = __ "if"i __ "not"i __ "exists" __
+timestamp = "timestamp"i __
+ttl = "ttl"i __
+eq = "=" __
+lbracket = "{" __
+rbracket = "}" __
+if = "if"i __
+colon = ":" __
+
+if_clause = if if_condition ++ "and"
+if_condition = (field eq placeholder) /
+                (field "[" field "]" eq placeholder)
+
+#[pub]
+using_clause = using using_options ++ "and"i __
+
+using_options = timestamp_clause / ttl_clause
+timestamp_clause = timestamp int
+ttl_clause = ttl int
+
+order_by_clause = "order" __ "by" __ field __ order_direction? {}
+
+asc = "asc"i
+desc = "desc"i
+order_direction = asc / desc
+
+#[pub]
+assignment = (field eq placeholder) / counter_op
+
+#[pub]
+counter_op = field eq field (plus / minus) (int / placeholder)
+
+#[pub]
+map_literal = lbracket (field colon placeholder ++ comma) rbracket
+
+#[pub]
+fields = (field ++ ",")
+fields_or_star = fields / star
+
+table = [a-zA-Z]+ __
+limit = "limit"i __
+int = [1-9][0-9]* __
+
+limit_clause = __ limit int __
+
+__ = (whitespace / eol)*
+
+whitespace
+  = [ \t\u{00A0}\u{FEFF}\u{1680}\u{180E}\u{2000}-\u{200A}\u{202F}\u{205F}\u{3000}] // \v\f removed
+
+eol
+  = "\n"
+  / "\r\n"
+  / "\r"
+  / "\u{2028}"
+  / "\u{2029}"

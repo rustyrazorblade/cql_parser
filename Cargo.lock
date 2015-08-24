@@ -1,0 +1,12 @@
+[root]
+name = "cql_parser"
+version = "0.1.0"
+dependencies = [
+ "peg 0.3.1 (git+https://github.com/kevinmehall/rust-peg.git)",
+]
+
+[[package]]
+name = "peg"
+version = "0.3.1"
+source = "git+https://github.com/kevinmehall/rust-peg.git#031bbfbf1f43de0bdd9efff3fa85972f40dca446"
+

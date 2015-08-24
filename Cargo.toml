@@ -1,0 +1,10 @@
+[package]
+name = "cql_parser"
+version = "0.1.0"
+authors = ["Jon Haddad <jon@jonhaddad.com>"]
+
+[lib]
+name = "cql_parser"
+
+[dependencies.peg]
+git = "https://github.com/kevinmehall/rust-peg.git"
