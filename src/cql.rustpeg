@@ -102,11 +102,18 @@ if_condition = (field eq placeholder) /
                 (field "[" field "]" eq placeholder)
 
 #[pub]
-using_clause = using using_options ++ "and"i __
+using_clause -> Vec<UsingOption>
+             = using using_option ++ "and"i __
+             { Vec::new() }
 
-using_options = timestamp_clause / ttl_clause
-timestamp_clause = timestamp int { () }
-ttl_clause = ttl int { () }
+using_option -> UsingOption
+    = (timestamp_clause / ttl_clause)
+
+timestamp_clause -> UsingOption
+                = timestamp int { UsingOption::Timestamp(1) }
+
+ttl_clause -> UsingOption
+    = ttl int { UsingOption::TTL(0) }
 
 order_by_clause -> String
     = "order" __ "by" __ field __ order_direction?
