@@ -30,7 +30,8 @@ impl Predicate {
 
 #[derive(Clone, Debug)]
 pub enum Variable {
-    Placeholder
+    Placeholder,
+    NamedPlaceHolder(String)
 }
 
 #[derive(Clone, Debug)]
