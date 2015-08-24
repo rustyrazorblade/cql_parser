@@ -29,11 +29,14 @@ delete_statement -> ParsedCqlStatement
       }
 
 update_statement -> ParsedCqlStatement
-    = update table
+    = update table:table
         using_clause?
         set assignment ++ comma
         where_clauses if_clause?
-        { ParsedCqlStatement::Update }
+        {
+            let u = UpdateStatement::new(table);
+            ParsedCqlStatement::Update(u)
+        }
 
 #[pub]
 where_clauses = where __ predicates __
