@@ -50,7 +50,11 @@ predicate -> Predicate
     = field:field op placeholder
     { Predicate::new(field) }
 
-op = '=' / '<' / '>' / '<=' / '>=' / "contains"i / "contains key"i
+op -> String
+    = ('=' / '<' / '>' / '<=' / '>=' / "contains"i / "contains key"i)
+    {  match_str.to_string() }
+
+
 plus = "+" __
 minus = "-" __
 comma = __ "," __
