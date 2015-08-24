@@ -5,9 +5,9 @@ cql_statement -> ParsedCqlStatement
     = select_statement / insert_statement / delete_statement / update_statement
 
 select_statement -> ParsedCqlStatement
-    = select fields:fields_or_star from table where_clauses? order_by_clause? limit_clause?
+    = select fields:fields_or_star from table:table where_clauses? order_by_clause? limit_clause?
     {
-        let s = SelectStatement::new(fields);
+        let s = SelectStatement::new(fields, table);
         ParsedCqlStatement::Select(s)
     }
 
@@ -107,7 +107,9 @@ fields -> Fields
 fields_or_star -> Fields
     = fields / star
 
-table = [a-zA-Z]+ __
+table -> String
+    = [a-zA-Z]+ __  { match_str.to_string() }
+
 limit = "limit"i __
 int = [1-9][0-9]* __
 

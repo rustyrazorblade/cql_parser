@@ -39,10 +39,11 @@ impl InsertStatement {
 #[derive(Clone, Debug)]
 pub struct SelectStatement {
     fields: Fields,
+    table: String
 }
 
 impl SelectStatement {
-    pub fn new(fields: Fields) -> SelectStatement {
-        SelectStatement{ fields: fields }
+    pub fn new(fields: Fields, table: String) -> SelectStatement {
+        SelectStatement{ fields: fields, table:table}
     }
 }
