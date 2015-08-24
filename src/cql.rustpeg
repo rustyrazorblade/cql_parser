@@ -41,8 +41,8 @@ predicates = __ predicate ++ and __
 
 #[pub]
 predicate -> Predicate
-    = field op placeholder
-    { Predicate::new() }
+    = field:field op placeholder
+    { Predicate::new(field) }
 
 op = '=' / '<' / '>' / '<=' / '>=' / "contains"i / "contains key"i
 plus = "+" __

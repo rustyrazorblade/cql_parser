@@ -21,8 +21,8 @@ pub struct Predicate {
 }
 
 impl Predicate {
-    pub fn new() -> Predicate {
-        Predicate{field: "test".to_string(),
+    pub fn new(field:String) -> Predicate {
+        Predicate{field: field,
                     op: "test".to_string(),
                     val: Variable::Placeholder}
     }
