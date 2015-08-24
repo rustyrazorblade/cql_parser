@@ -16,7 +16,7 @@ select_statement -> ParsedCqlStatement
                                      table,
                                      where_clauses,
                                      order_by,
-                                     limit);
+                                     Some(1 as isize));
         ParsedCqlStatement::Select(s)
     }
 

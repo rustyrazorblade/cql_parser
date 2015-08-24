@@ -64,7 +64,7 @@ pub struct SelectStatement {
     pub table: String,
     pub where_clauses: Option<Vec<Predicate>>,
     pub order_by: Option<String>,
-    pub limit: Option<String>
+    pub limit: Option<isize>
 }
 
 impl SelectStatement {
@@ -72,7 +72,7 @@ impl SelectStatement {
                table: String,
                where_clauses: Option<Vec<Predicate>>,
                order_by: Option<String>,
-               limit: Option<String>  )
+               limit: Option<isize>  )
                -> SelectStatement {
 
         SelectStatement{ fields: fields,
