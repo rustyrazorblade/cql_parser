@@ -7,6 +7,11 @@ pub enum ParsedCqlStatement {
     Update
 }
 
+#[derive(Clone, Debug)]
+pub enum Fields {
+    All,
+    Named(Vec<String>)
+}
 
 #[derive(Clone, Debug)]
 pub struct Predicate {

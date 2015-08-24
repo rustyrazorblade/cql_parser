@@ -7,7 +7,8 @@ cql_statement -> ParsedCqlStatement
 select_statement -> ParsedCqlStatement
     = select fields_or_star from table where_clauses? order_by_clause? limit_clause?
     {
-        ParsedCqlStatement::Select( SelectStatement::new())
+        let s = SelectStatement::new();
+        ParsedCqlStatement::Select(s)
     }
 
 insert_statement -> ParsedCqlStatement
@@ -91,8 +92,10 @@ counter_op = field eq field (plus / minus) (int / placeholder)
 map_literal = lbracket (field colon placeholder ++ comma) rbracket
 
 #[pub]
-fields = (field ++ ",")
-fields_or_star = fields / star
+fields -> Fields
+    = (field ++ ",") { Fields::All }
+fields_or_star -> Fields
+    = fields / star { Fields::All }
 
 table = [a-zA-Z]+ __
 limit = "limit"i __
