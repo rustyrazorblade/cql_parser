@@ -40,7 +40,9 @@ where_clause = where __ predicate __
 predicates = __ predicate ++ and __
 
 #[pub]
-predicate = field op placeholder
+predicate -> Predicate
+    = field op placeholder
+    { Predicate::new() }
 
 op = '=' / '<' / '>' / '<=' / '>=' / "contains"i / "contains key"i
 plus = "+" __

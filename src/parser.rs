@@ -68,7 +68,7 @@ fn test_fields() {
 
 #[test]
 fn test_where_clause() {
-    assert!(cql::predicate("term > ?").is_ok());
+    let p = cql::predicate("term > ?").unwrap();
 }
 
 #[test]

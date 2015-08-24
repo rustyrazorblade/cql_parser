@@ -20,6 +20,14 @@ pub struct Predicate {
     val: Variable,
 }
 
+impl Predicate {
+    pub fn new() -> Predicate {
+        Predicate{field: "test".to_string(),
+                    op: "test".to_string(),
+                    val: Variable::Placeholder}
+    }
+}
+
 #[derive(Clone, Debug)]
 pub enum Variable {
     Placeholder
