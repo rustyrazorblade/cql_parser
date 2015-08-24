@@ -150,6 +150,9 @@ limit = "limit"i __
 int_old
     = [1-9][0-9]* __
 
+int -> isize
+    = [1-9][0-9]* __ { match_str.trim().parse().unwrap() }
+
 limit_clause -> String
     = __ limit int_old __ { match_str.to_string() }
 
