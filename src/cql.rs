@@ -17,21 +17,15 @@ pub enum Fields {
 pub struct Predicate {
     field: String,
     op: String,
-    val: Variable,
+    val: Value,
 }
 
 impl Predicate {
     pub fn new(field:String, op: String) -> Predicate {
         Predicate{field: field,
                     op: op,
-                    val: Variable::Placeholder}
+                    val: Value::Placeholder}
     }
-}
-
-#[derive(Clone, Debug)]
-pub enum Variable {
-    Placeholder,
-    NamedPlaceHolder(String)
 }
 
 #[derive(Clone, Debug)]
@@ -40,7 +34,10 @@ pub enum Value {
     Float,
     UUID,
     Date,
-    Expression(String)
+    Expression(String),
+    // in a prepared statement ?
+    Placeholder,
+    NamedPlaceHolder(String)
 }
 
 

@@ -148,7 +148,7 @@ table -> String
 limit = "limit"i __
 
 int
-    = [1-9][0-9]* __
+    = [1-9][0-9]* __ 
 
 limit_clause -> String
     = __ limit int __ { match_str.to_string() }
