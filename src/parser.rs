@@ -48,6 +48,8 @@ fn test_fields() {
     match parsed.unwrap() {
         Fields::Named(v) => {
             assert!(v[0] == "name");
+            println!("second field {}", v[1]);
+            assert!(v[1] == "age");
         },
         _ => {
             panic!("Wrong type")

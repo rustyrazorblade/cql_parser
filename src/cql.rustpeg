@@ -42,7 +42,7 @@ predicate = field op placeholder
 op = '=' / '<' / '>' / '<=' / '>=' / "contains"i / "contains key"i
 plus = "+" __
 minus = "-" __
-comma = "," __
+comma = __ "," __
 delete = "delete" __
 placeholder = __ "?" __
 and = __ "and"i __
@@ -99,8 +99,9 @@ map_literal = lbracket (field colon placeholder ++ comma) rbracket
 
 #[pub]
 fields -> Fields
-    = fields:(field ++ ",")
+    = fields:(field ++ comma)
     { Fields::Named(fields) }
+
 
 fields_or_star -> Fields
     = fields / star
