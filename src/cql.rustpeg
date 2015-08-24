@@ -15,7 +15,10 @@ insert_statement -> ParsedCqlStatement
     = "insert" into  table __ "(" fields ")" values
         "(" placeholder ++ ","  ")" __ if_not_exists?
         using_clause?
-      { ParsedCqlStatement::Insert }
+      {
+          let i = InsertStatement::new();
+          ParsedCqlStatement::Insert(i)
+      }
 
 delete_statement -> ParsedCqlStatement
     = delete from table
