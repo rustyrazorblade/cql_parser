@@ -67,7 +67,8 @@ pub struct SelectStatement {
 impl SelectStatement {
     pub fn new(fields: Fields,
                table: String,
-               where_clauses: Option<Vec<Predicate>> )
+               where_clauses: Option<Vec<Predicate>>,
+               order_by: Option<String> )
                -> SelectStatement {
         SelectStatement{ fields: fields, table:table}
     }

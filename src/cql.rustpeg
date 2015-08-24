@@ -9,12 +9,13 @@ select_statement -> ParsedCqlStatement
       fields:fields_or_star
       from table:table
       where_clauses:where_clauses?
-      order_by_clause?
+      order_by:order_by_clause?
       limit_clause?
     {
         let s = SelectStatement::new(fields,
                                      table,
-                                     where_clauses);
+                                     where_clauses,
+                                     order_by);
         ParsedCqlStatement::Select(s)
     }
 
@@ -105,7 +106,9 @@ using_options = timestamp_clause / ttl_clause
 timestamp_clause = timestamp int
 ttl_clause = ttl int
 
-order_by_clause = "order" __ "by" __ field __ order_direction? {}
+order_by_clause -> String
+    = "order" __ "by" __ field __ order_direction?
+    { match_str.to_string() }
 
 asc = "asc"i
 desc = "desc"i
