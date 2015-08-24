@@ -30,7 +30,7 @@ impl Predicate {
 
 #[derive(Clone, Debug)]
 pub enum Value {
-    Int,
+    Int(isize),
     Float,
     UUID,
     Date,

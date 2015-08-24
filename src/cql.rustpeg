@@ -153,6 +153,8 @@ int_old
 int -> isize
     = [1-9][0-9]* __ { match_str.trim().parse().unwrap() }
 
+int_value -> Value = i:int { Value::Int(i) }
+
 limit_clause -> String
     = __ limit int_old __ { match_str.to_string() }
 
