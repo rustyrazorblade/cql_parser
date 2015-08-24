@@ -1,7 +1,7 @@
 
 #[derive(Clone, Debug)]
 pub enum ParsedCqlStatement {
-    Select,
+    Select(SelectStatement),
     Insert,
     Delete,
     Update
