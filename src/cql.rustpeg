@@ -53,7 +53,7 @@ star -> Fields
     = __ "*" __ { Fields::All }
 
 select =  "select"i __
-field = __ [a-zA-Z0-9]+ __
+field -> String = __ [a-zA-Z0-9]+ __ { match_str.to_string() }
 values = __ "values"i __
 update = "update"i __
 set = __ "set"i __
@@ -99,7 +99,7 @@ fields -> Fields
     = (field ++ ",") { Fields::All }
 
 fields_or_star -> Fields
-    = fields / star 
+    = fields / star
 
 table = [a-zA-Z]+ __
 limit = "limit"i __
