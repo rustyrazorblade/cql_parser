@@ -107,7 +107,7 @@ using_clause -> Vec<UsingOption>
              { options }
 
 using_option -> UsingOption
-    = (timestamp_clause / ttl_clause)
+    = timestamp_clause / ttl_clause
 
 timestamp_clause -> UsingOption
                 = timestamp int { UsingOption::Timestamp(1) }
