@@ -61,7 +61,10 @@ impl InsertStatement {
 #[derive(Clone, Debug)]
 pub struct SelectStatement {
     fields: Fields,
-    table: String
+    table: String,
+    where_clauses: Option<Vec<Predicate>>,
+    order_by: Option<String>,
+    limit: Option<String>
 }
 
 impl SelectStatement {
@@ -71,7 +74,12 @@ impl SelectStatement {
                order_by: Option<String>,
                limit: Option<String>  )
                -> SelectStatement {
-        SelectStatement{ fields: fields, table:table}
+
+        SelectStatement{ fields: fields,
+                         table:table,
+                         where_clauses: where_clauses,
+                         order_by: order_by,
+                         limit: limit }
     }
 }
 
