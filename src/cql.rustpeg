@@ -110,10 +110,10 @@ using_option -> UsingOption
     = timestamp_clause / ttl_clause
 
 timestamp_clause -> UsingOption
-                = timestamp int { UsingOption::Timestamp(1) }
+                = timestamp int_old { UsingOption::Timestamp(1) }
 
 ttl_clause -> UsingOption
-    = ttl int { UsingOption::TTL(0) }
+    = ttl int_old { UsingOption::TTL(0) }
 
 order_by_clause -> String
     = "order" __ "by" __ field __ order_direction?
@@ -127,7 +127,7 @@ order_direction = asc / desc
 assignment = (field eq placeholder) / counter_op
 
 #[pub]
-counter_op = field eq field (plus / minus) (int / placeholder) { () }
+counter_op = field eq field (plus / minus) (int_old / placeholder) { () }
 
 #[pub]
 map_literal = lbracket (field colon placeholder ++ comma) rbracket
@@ -147,11 +147,11 @@ table -> String
 
 limit = "limit"i __
 
-int
-    = [1-9][0-9]* __ 
+int_old
+    = [1-9][0-9]* __
 
 limit_clause -> String
-    = __ limit int __ { match_str.to_string() }
+    = __ limit int_old __ { match_str.to_string() }
 
 __ = (whitespace / eol)*
 
