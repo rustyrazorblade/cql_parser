@@ -83,6 +83,11 @@ impl SelectStatement {
     }
 }
 
+#[derive(Clone, Debug)]
+pub enum UsingOption {
+    Timestamp(isize),
+    TTL(isize)
+}
 
 #[derive(Clone, Debug)]
 pub struct DeleteStatement {
