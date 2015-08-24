@@ -60,11 +60,11 @@ impl InsertStatement {
 
 #[derive(Clone, Debug)]
 pub struct SelectStatement {
-    fields: Fields,
-    table: String,
-    where_clauses: Option<Vec<Predicate>>,
-    order_by: Option<String>,
-    limit: Option<String>
+    pub fields: Fields,
+    pub table: String,
+    pub where_clauses: Option<Vec<Predicate>>,
+    pub order_by: Option<String>,
+    pub limit: Option<String>
 }
 
 impl SelectStatement {

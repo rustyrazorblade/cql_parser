@@ -34,7 +34,7 @@ fn test_simple_select_with_spacing() {
 
 #[test]
 #[should_panic]
-fn test_invalid_selec() {
+fn test_invalid_select() {
     verify("select from");
 }
 
@@ -78,8 +78,14 @@ fn test_where() {
 
 #[test]
 fn test_select_with_limit() {
-    assert!(cql::cql_statement("select * from blah
-                                LIMIT 1").is_ok());
+    let p = cql::cql_statement("select * from blah
+                                LIMIT 1").unwrap();
+
+    if let ParsedCqlStatement::Select(s) = p {
+        // TODO convert to isize
+        // assert_eq!(s.limit.unwrap(), 1);
+    }
+
     assert!(cql::cql_statement("select * from blah
                                 WHERE a = ? and b = ?
                                 LIMIT 1").is_ok());
@@ -124,7 +130,7 @@ fn test_simple_update() {
 #[test]
 fn test_multiple_where_clauses() {
     let p = cql::where_clauses("where k = ? and v = ?").unwrap();
-    
+
 }
 
 #[test]
