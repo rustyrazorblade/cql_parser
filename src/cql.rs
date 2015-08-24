@@ -3,7 +3,7 @@
 pub enum ParsedCqlStatement {
     Select(SelectStatement),
     Insert(InsertStatement),
-    Delete,
+    Delete(DeleteStatement),
     Update
 }
 
@@ -66,5 +66,17 @@ pub struct SelectStatement {
 impl SelectStatement {
     pub fn new(fields: Fields, table: String) -> SelectStatement {
         SelectStatement{ fields: fields, table:table}
+    }
+}
+
+
+#[derive(Clone, Debug)]
+pub struct DeleteStatement {
+    table: String
+}
+
+impl DeleteStatement {
+    pub fn new(table: String) -> DeleteStatement {
+        DeleteStatement{table:table}
     }
 }

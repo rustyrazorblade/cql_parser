@@ -21,9 +21,12 @@ insert_statement -> ParsedCqlStatement
       }
 
 delete_statement -> ParsedCqlStatement
-    = delete from table
+    = delete from table:table
       where_clauses
-      { ParsedCqlStatement::Delete }
+      {
+        let d = DeleteStatement::new(table);
+        ParsedCqlStatement::Delete(d)
+      }
 
 update_statement -> ParsedCqlStatement
     = update table
