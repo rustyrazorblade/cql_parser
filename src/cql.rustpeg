@@ -22,10 +22,10 @@ select_statement -> ParsedCqlStatement
 
 insert_statement -> ParsedCqlStatement
     = "insert" into  table:table __ "(" fields:fields ")" values
-        "(" placeholder_old ++ ","  ")" __ lwt:if_not_exists?
+        "(" values:value ++ ","  ")" __ lwt:if_not_exists?
         using_clause?
       {
-          let i = InsertStatement::new(fields, table, lwt.is_some());
+          let i = InsertStatement::new(table, fields, values, lwt.is_some());
           ParsedCqlStatement::Insert(i)
       }
 

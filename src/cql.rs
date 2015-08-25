@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 
 #[derive(Clone, Debug)]
 pub enum ParsedCqlStatement {
@@ -45,15 +46,21 @@ pub enum Value {
 #[derive(Clone, Debug)]
 pub struct InsertStatement {
     fields: Fields,
+    kv: HashMap<String, Value>,
     table: String,
     lwt: bool
 }
 
 impl InsertStatement {
     // should merge the fields and the values to a hashmap
-    pub fn new(fields: Fields, table: String, lwt: bool) -> InsertStatement {
+    pub fn new(table: String, fields: Fields, values: Vec<Value>, lwt: bool) -> InsertStatement {
 
-        InsertStatement{fields: fields, table:table, lwt: lwt}
+
+        let kv = HashMap::new();
+        // for field in fields.iter() {
+        //
+        // }
+        InsertStatement{fields: fields, table:table, lwt: lwt, kv: kv}
     }
 }
 
