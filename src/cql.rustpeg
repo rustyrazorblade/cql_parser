@@ -132,7 +132,8 @@ order_direction = asc / desc
 assignment = (field eq placeholder_old) / counter_op
 
 #[pub]
-counter_op = field eq field (plus / minus) (int_old / placeholder_old) { () }
+counter_op = field eq field (plus / minus)
+                (i:int { Value::Int(i) } / placeholder ) { () }
 
 #[pub]
 map_literal = lbracket (field colon placeholder_old ++ comma) rbracket
