@@ -71,7 +71,7 @@ fn test_where_clause() {
     let p = cql::predicate("term > ?").unwrap();
     assert_eq!(p.field, "term");
     assert!(p.op == ">");
-    
+
     if let Value::Placeholder = p.val {
     } else {
         panic!("Wrong type, expected placeholder")
@@ -86,11 +86,11 @@ fn test_where() {
 #[test]
 fn test_select_with_limit() {
     let p = cql::cql_statement("select * from blah
-                                LIMIT 1").unwrap();
+                                LIMIT 10").unwrap();
 
     if let ParsedCqlStatement::Select(s) = p {
         // TODO convert to isize
-        // assert_eq!(s.limit.unwrap(), 1);
+        assert_eq!(s.limit.unwrap(), 10);
     }
 
     assert!(cql::cql_statement("select * from blah
