@@ -45,14 +45,15 @@ pub enum Value {
 #[derive(Clone, Debug)]
 pub struct InsertStatement {
     fields: Fields,
-    table: String
+    table: String,
+    lwt: bool
 }
 
 impl InsertStatement {
     // should merge the fields and the values to a hashmap
-    pub fn new(fields: Fields, table: String) -> InsertStatement {
+    pub fn new(fields: Fields, table: String, lwt: bool) -> InsertStatement {
 
-        InsertStatement{fields: fields, table:table}
+        InsertStatement{fields: fields, table:table, lwt: lwt}
     }
 }
 
