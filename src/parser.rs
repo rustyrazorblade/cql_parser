@@ -69,6 +69,13 @@ fn test_fields() {
 #[test]
 fn test_where_clause() {
     let p = cql::predicate("term > ?").unwrap();
+    assert_eq!(p.field, "term");
+    assert!(p.op == ">");
+    
+    if let Value::Placeholder = p.val {
+    } else {
+        panic!("Wrong type, expected placeholder")
+    }
 }
 
 #[test]

@@ -15,9 +15,9 @@ pub enum Fields {
 
 #[derive(Clone, Debug)]
 pub struct Predicate {
-    field: String,
-    op: String,
-    val: Value,
+    pub field: String,
+    pub op: String,
+    pub val: Value,
 }
 
 impl Predicate {

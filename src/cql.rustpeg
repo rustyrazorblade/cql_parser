@@ -82,7 +82,7 @@ star -> Fields
 select =  "select"i __
 
 field -> String
-    = __ [a-zA-Z0-9]+ __ { match_str.to_string() }
+    = __ [a-zA-Z0-9]+ __ { match_str.trim().to_string() }
 
 value -> Value
      = i:int  { Value::Int(i) }
