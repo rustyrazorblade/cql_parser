@@ -2,7 +2,10 @@ use cql::*;
 
 #[pub]
 cql_statement -> ParsedCqlStatement
-    = select_statement / insert_statement / delete_statement / update_statement
+    = select_statement
+    / insert_statement
+    / delete_statement
+    / update_statement
 
 select_statement -> ParsedCqlStatement
     = select
@@ -10,7 +13,7 @@ select_statement -> ParsedCqlStatement
       from table:table
       where_clauses:where_clauses?
       order_by:order_by_clause?
-      limit:limit_clause?
+      limit:limit_clause? semi?
     {
         let s = SelectStatement::new(fields,
                                      table,
@@ -25,7 +28,7 @@ insert_statement -> ParsedCqlStatement
         "(" fields:fields ")"
         values "(" values:value ++ ","  ")" __
         lwt:if_not_exists?
-        using_clause:using_clause?
+        using_clause:using_clause? semi?
       {?
           // fields can't be all
           match fields {
@@ -40,7 +43,7 @@ insert_statement -> ParsedCqlStatement
 
 delete_statement -> ParsedCqlStatement
     = delete from table:table
-      where_clauses:where_clauses
+      where_clauses:where_clauses semi?
       {
         let d = DeleteStatement::new(table);
         ParsedCqlStatement::Delete(d)
@@ -51,6 +54,7 @@ update_statement -> ParsedCqlStatement
         using_clause:using_clause?
         set assignments:assignment ++ comma
         where_clauses:where_clauses lwt:if_clause?
+        semi?
         {
             let u = UpdateStatement::new(table);
             ParsedCqlStatement::Update(u)
@@ -110,6 +114,7 @@ lbracket = "{" __
 rbracket = "}" __
 if = "if"i __
 colon = ":" __
+semi = ";" __
 
 if_clause = if if_condition ++ "and"
 if_condition = (field eq placeholder_old) /
