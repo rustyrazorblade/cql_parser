@@ -12,6 +12,7 @@ insert into users (name, age) values (?, ?) using timestamp 60
 insert into users (name, age) values (?, ?) using ttl 60
 insert into ts (id, t, val) values (1, 1, 1)
 insert into blah (name, value) values (?, ?)
+
 // LWT
 insert into users (name, age) values (?, ?) if not exists
 

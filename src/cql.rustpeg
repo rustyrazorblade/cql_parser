@@ -53,7 +53,8 @@ update_statement -> ParsedCqlStatement
     = update table:table
         using_clause:using_clause?
         set assignments:assignment ++ comma
-        where_clauses:where_clauses lwt:if_clause?
+        where_clauses:where_clauses
+        lwt:if_clause?
         semi?
         {
             let u = UpdateStatement::new(table);
@@ -87,7 +88,7 @@ placeholder_old = __ "?" __
 placeholder -> Value = __ "?" __ { Value::Placeholder }
 and = __ "and"i __
 from = __ "from"i __
-where = "where"i  __
+where = __ "where"i  __
 
 star -> Fields
     = __ "*" __ { Fields::All }
