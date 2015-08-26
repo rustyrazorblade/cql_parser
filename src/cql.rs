@@ -1,5 +1,16 @@
 use std::collections::HashMap;
 
+peg_file! cql("cql.rustpeg");
+
+
+pub fn parse(stmt: &str) -> Result<i64, &str> {
+    let result = match cql::cql_statement(stmt) {
+        Ok(x) => Ok(0),
+        _ => Err("meh")
+    };
+    result
+}
+
 #[derive(Clone, Debug)]
 pub enum ParsedCqlStatement {
     Select(SelectStatement),
@@ -116,5 +127,86 @@ pub struct UpdateStatement {
 impl UpdateStatement {
     pub fn new(table: String) -> UpdateStatement {
         UpdateStatement{table:table}
+    }
+}
+
+
+#[test]
+fn test_where() {
+    assert!(cql::where_clauses("where term > ?").is_ok());
+}
+
+// counters
+#[test]
+fn test_counters() {
+    assert!(cql::counter_op("blah = blah + 1").is_ok());
+    assert!(cql::counter_op("blah = blah - 1").is_ok());
+    assert!(cql::counter_op("blah = blah - ?").is_ok());
+
+    let q = "update whatever
+             set k = k + 1
+             where bacon = ?";
+    assert!(cql::cql_statement(q).is_ok());
+}
+
+#[test]
+fn test_timestamp() {
+    assert!(cql::using_clause("using timestamp 60").is_ok());
+
+}
+
+#[test]
+fn test_ttl() {
+    assert!(cql::using_clause("using ttl 60").is_ok());
+}
+
+#[test]
+fn test_multiple_where_clauses() {
+    let p = cql::where_clauses("where k = ? and v = ?").unwrap();
+}
+
+#[test]
+fn test_fields() {
+    let parsed = cql::fields("name, age");
+    assert!(parsed.is_ok());
+
+    // should be a Fields enum
+    match parsed.unwrap() {
+        Fields::Named(v) => {
+            assert!(v[0] == "name");
+            println!("second field {}", v[1]);
+            assert!(v[1] == "age");
+        },
+        _ => {
+            panic!("Wrong type")
+        }
+    };
+
+    let parsed = cql::fields_or_star("name, age").unwrap();
+    let parsed = cql::fields_or_star("*").unwrap();
+
+    match parsed {
+        Fields::All => (),
+        _ => { panic!("Wrong type returned")}
+    };
+
+}
+
+#[test]
+#[should_panic]
+fn test_invalid_select() {
+    cql::cql_statement("select from").unwrap();
+}
+
+
+#[test]
+fn test_where_clause() {
+    let p = cql::predicate("term > ?").unwrap();
+    assert_eq!(p.field, "term");
+    assert!(p.op == ">");
+
+    if let Value::Placeholder = p.val {
+    } else {
+        panic!("Wrong type, expected placeholder")
     }
 }
