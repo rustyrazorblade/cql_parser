@@ -43,8 +43,8 @@ delete_statement -> ParsedCqlStatement
 update_statement -> ParsedCqlStatement
     = update table:table
         using_clause:using_clause?
-        set assignment ++ comma
-        where_clauses if_clause?
+        set assignments:assignment ++ comma
+        where_clauses:where_clauses lwt:if_clause?
         {
             let u = UpdateStatement::new(table);
             ParsedCqlStatement::Update(u)
