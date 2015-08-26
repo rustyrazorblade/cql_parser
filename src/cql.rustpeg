@@ -28,8 +28,14 @@ insert_statement -> ParsedCqlStatement
         using_clause:using_clause?
       {?
           // fields can't be all
-          let i = InsertStatement::new(table, fields, values, lwt.is_some());
-          Ok(ParsedCqlStatement::Insert(i))
+          match fields {
+            Fields::All  =>
+                Err("no * on insert bro"),
+            _ => {
+              let i = InsertStatement::new(table, fields, values, lwt.is_some());
+              Ok(ParsedCqlStatement::Insert(i))
+            }
+          }
       }
 
 delete_statement -> ParsedCqlStatement
