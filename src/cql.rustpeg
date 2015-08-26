@@ -27,6 +27,7 @@ insert_statement -> ParsedCqlStatement
         lwt:if_not_exists?
         using_clause:using_clause?
       {
+          // fields can't be all
           let i = InsertStatement::new(table, fields, values, lwt.is_some());
           ParsedCqlStatement::Insert(i)
       }

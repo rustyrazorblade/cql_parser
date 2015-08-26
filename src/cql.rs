@@ -54,8 +54,8 @@ pub struct InsertStatement {
 impl InsertStatement {
     // should merge the fields and the values to a hashmap
     pub fn new(table: String, fields: Fields, values: Vec<Value>, lwt: bool) -> InsertStatement {
-
-
+        // fields cannot be All
+        // I don't know, do we panic?
         let kv = HashMap::new();
         // for field in fields.iter() {
         //
