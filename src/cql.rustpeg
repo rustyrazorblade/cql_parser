@@ -26,7 +26,7 @@ select_statement -> ParsedCqlStatement
 insert_statement -> ParsedCqlStatement
     = "insert" into  table:table __
         "(" fields:fields ")"
-        values "(" values:value ++ ","  ")" __
+        values "(" values:comma_separated_values  ")" __
         lwt:if_not_exists?
         using_clause:using_clause? semi?
       {?
@@ -97,8 +97,13 @@ select =  "select"i __
 field -> String
     = __ [a-zA-Z0-9]+ __ { match_str.trim().to_string() }
 
+#[pub]
+comma_separated_values -> Vec<Value>
+    = value ++ comma
+
+#[pub]
 value -> Value
-     = i:int  { Value::Int(i) }
+     = i:int __  { Value::Int(i) }
      /  i:placeholder { Value::Placeholder }
 
 values = __ "values"i __
@@ -171,7 +176,8 @@ int_old
     = [1-9][0-9]* __
 
 int -> isize
-    = [1-9][0-9]* __ { match_str.trim().parse().unwrap() }
+    = [1-9][0-9]*
+    { match_str.trim().parse().unwrap() }
 
 limit_clause -> isize
     = __ limit i:int __ { i }

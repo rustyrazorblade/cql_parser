@@ -142,11 +142,6 @@ fn test_counters() {
     assert!(cql::counter_op("blah = blah + 1").is_ok());
     assert!(cql::counter_op("blah = blah - 1").is_ok());
     assert!(cql::counter_op("blah = blah - ?").is_ok());
-
-    let q = "update whatever
-             set k = k + 1
-             where bacon = ?";
-    assert!(cql::cql_statement(q).is_ok());
 }
 
 #[test]
@@ -209,4 +204,15 @@ fn test_where_clause() {
     } else {
         panic!("Wrong type, expected placeholder")
     }
+}
+
+#[test]
+fn test_comma_separated_values() {
+    let vals = cql::comma_separated_values("?, ?, ?").unwrap();
+    let vals = cql::comma_separated_values("1, 1, 1").unwrap();
+}
+
+#[test]
+fn test_value_parsing() {
+    cql::value("1").unwrap();
 }
