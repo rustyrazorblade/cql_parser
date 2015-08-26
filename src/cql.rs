@@ -2,13 +2,14 @@ use std::collections::HashMap;
 
 peg_file! cql("cql.rustpeg");
 
-pub fn parse(stmt: &str) -> Result<i64, &str> {
+pub fn parse(stmt: &str) -> Result<ParsedCqlStatement, &str> {
     let result = match cql::cql_statement(stmt) {
-        Ok(x) => Ok(0),
+        Ok(x) => Ok(x),
         _ => Err("meh")
     };
     result
 }
+
 
 #[derive(Clone, Debug)]
 pub enum ParsedCqlStatement {
