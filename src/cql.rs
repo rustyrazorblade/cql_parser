@@ -2,7 +2,6 @@ use std::collections::HashMap;
 
 peg_file! cql("cql.rustpeg");
 
-
 pub fn parse(stmt: &str) -> Result<i64, &str> {
     let result = match cql::cql_statement(stmt) {
         Ok(x) => Ok(0),
