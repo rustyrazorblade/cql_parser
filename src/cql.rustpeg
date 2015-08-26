@@ -23,7 +23,8 @@ select_statement -> ParsedCqlStatement
 insert_statement -> ParsedCqlStatement
     = "insert" into  table:table __
         "(" fields:fields ")"
-        values "(" values:value ++ ","  ")" __ lwt:if_not_exists?
+        values "(" values:value ++ ","  ")" __
+        lwt:if_not_exists?
         using_clause:using_clause?
       {
           let i = InsertStatement::new(table, fields, values, lwt.is_some());
@@ -32,7 +33,7 @@ insert_statement -> ParsedCqlStatement
 
 delete_statement -> ParsedCqlStatement
     = delete from table:table
-      where_clauses
+      where_clauses:where_clauses
       {
         let d = DeleteStatement::new(table);
         ParsedCqlStatement::Delete(d)
@@ -40,7 +41,7 @@ delete_statement -> ParsedCqlStatement
 
 update_statement -> ParsedCqlStatement
     = update table:table
-        using_clause?
+        using_clause:using_clause?
         set assignment ++ comma
         where_clauses if_clause?
         {
