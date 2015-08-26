@@ -8,14 +8,17 @@ select * from test
 select * from blah LIMIT 10
 select * from blah WHERE a = ? and b = ? LIMIT 1
 
+insert into users (name, age) values (?, ?) using timestamp 60
+insert into users (name, age) values (?, ?) using ttl 60
+insert into blah (name, value) values (?, ?)
+// LWT
+insert into users (name, age) values (?, ?) if not exists
+
 update blah using ttl 60 set bal = ? where k = ?
 update men set bal = ? where k = ? if bal = ?
 update men set bal = ? where k = ? and v = ?
 update men set bal = ? where k = ?
 
-insert into users (name, age) values (?, ?) using timestamp 60
-insert into users (name, age) values (?, ?) using ttl 60
-insert into users (name, age) values (?, ?) if not exists
-insert into blah (name, value) values (?, ?)
+
 
 delete from blah where x = ?
