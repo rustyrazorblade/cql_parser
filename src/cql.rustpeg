@@ -185,7 +185,9 @@ counter_op = field eq field (plus / minus)
 #[pub]
 collection_mutation -> String
     = field eq field (plus / minus) collection_literal
-    { match_str.to_string() }
+      { match_str.to_string() }
+    / field __ eq __ collection_literal __ (plus / minus) __ field
+      { match_str.to_string() }
 
 #[pub]
 collection_update -> String

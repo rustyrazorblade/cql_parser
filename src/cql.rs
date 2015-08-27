@@ -287,6 +287,7 @@ fn test_set() {
 #[test]
 fn test_collection_mutation() {
     let p = cql::collection_mutation("favs = favs +  { 'movie' : 'Cassablanca' }").unwrap();
+    let p = cql::collection_mutation("scores = [ 12 ] + scores").unwrap();
 }
 
 #[test]
