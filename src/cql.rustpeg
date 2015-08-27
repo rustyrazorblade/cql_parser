@@ -111,6 +111,7 @@ value -> Value
      = i:int __  { Value::Int(i) }
      /  i:placeholder { Value::Placeholder }
      / i:uuid { i }
+     / i:quoted_string { i }
 
 values = __ "values"i __
 update = "update"i __
@@ -215,10 +216,10 @@ string -> String
     }
 
 #[pub]
-quoted_string -> String
+quoted_string -> Value
     = single_quote
       s:string
       single_quote
     {
-        s
+        Value::String(s)
     }

@@ -46,7 +46,7 @@ pub enum Value {
     Float,
     UUID(String),
     Date,
-    String,
+    String(String),
     Expression(String),
     // in a prepared statement ?
     Placeholder,
