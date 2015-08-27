@@ -101,7 +101,7 @@ star -> Fields
 select =  "select"i __
 
 field -> String
-    = __ [a-zA-Z0-9]+ __ { match_str.trim().to_string() }
+    = __ [a-zA-Z0-9_]+ __ { match_str.trim().to_string() }
 
 #[pub]
 comma_separated_values -> Vec<Value>
@@ -177,7 +177,7 @@ fields_or_star -> Fields
     = fields / star
 
 table -> String
-    = [a-zA-Z]+ __  { match_str.to_string() }
+    = [a-zA-Z_]+ __  { match_str.to_string() }
 
 limit = "limit"i __
 
