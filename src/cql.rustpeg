@@ -209,7 +209,7 @@ uuid -> Value
     }
 
 string -> String
-    = ([^\'])*
+    = ([^\'] / "''")*
     {
         match_str.to_string()
     }
