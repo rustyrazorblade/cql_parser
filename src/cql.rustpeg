@@ -169,7 +169,9 @@ order_direction = asc / desc
 // dedicated rules that return an Assignment type
 #[pub]
 assignment -> String
-    = (field eq value)  { match_str.to_string() }
+    = collection_update
+    / collection_mutation
+    / (field eq value)  { match_str.to_string() }
     / counter_op   { match_str.to_string() }
 
 
