@@ -52,6 +52,7 @@ pub enum Value {
     Placeholder,
     NamedPlaceHolder(String),
     Map(String),
+    Set(String),
 }
 
 
@@ -269,6 +270,15 @@ fn test_map() {
     let p = cql::map_literal("{ 'fruit' : 'apple', 'band' : 'Beatles' }").unwrap();
     match p {
         Value::Map(m) => (),
+        _ => { panic!("Wrong type, expected Map") }
+    };
+}
+
+#[test]
+fn test_set() {
+    let p = cql::set_literal("{ 'fruit', 'apple', 'band', 'Beatles' }").unwrap();
+    match p {
+        Value::Set(m) => (),
         _ => { panic!("Wrong type, expected Map") }
     };
 }

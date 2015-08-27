@@ -177,6 +177,16 @@ map_literal -> Value
       { Value::Map(match_str.to_string())  }
 
 #[pub]
+set_literal -> Value
+    = lbracket __
+      value ** comma
+    __ rbracket
+    {
+        Value::Set(match_str.to_string())
+    }
+
+
+#[pub]
 fields -> Fields
     = fields:(field ++ comma)
     { Fields::Named(fields) }
