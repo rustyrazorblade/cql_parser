@@ -262,3 +262,8 @@ fn test_less_than_eq() {
 fn test_op() {
     let p = cql::op("<=").unwrap();
 }
+
+#[test]
+fn test_map() {
+    let p = cql::map_literal("{ 'fruit' : 'apple', 'band' : 'Beatles' }").unwrap();
+}
