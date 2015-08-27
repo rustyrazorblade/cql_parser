@@ -175,9 +175,6 @@ table -> String
 
 limit = "limit"i __
 
-int_old
-    = [1-9][0-9]* __
-
 int -> isize
     = dash? [1-9][0-9]*
     { match_str.trim().parse().unwrap() }
