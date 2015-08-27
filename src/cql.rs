@@ -44,7 +44,7 @@ impl Predicate {
 pub enum Value {
     Int(isize),
     Float,
-    UUID,
+    UUID(String),
     Date,
     String,
     Expression(String),
@@ -215,4 +215,14 @@ fn test_comma_separated_values() {
 #[test]
 fn test_value_parsing() {
     cql::value("1").unwrap();
+}
+
+#[test]
+fn test_uuid() {
+    cql::uuid("de305d54-75b4-431b-adb2-eb6b9e546014").unwrap();
+}
+
+#[test]
+fn test_text() {
+
 }

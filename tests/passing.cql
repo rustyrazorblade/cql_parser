@@ -28,6 +28,7 @@ insert into users (name, age) values (?, ?) using timestamp 60
 insert into users (name, age) values (?, ?) using ttl 60
 insert into ts (id, t, val) values (1, 1, 1)
 insert into blah (name, value) values (?, ?)
+insert into ts (id, t, val) values (-1, -1, -1);
 INSERT INTO users (id, given, surname, favs) VALUES ('jsmith', 'John', 'Smith', { 'fruit' : 'apple', 'band' : 'Beatles' })
 INSERT INTO images (name, owner, date, tags) VALUES ('cat.jpg', 'jsmith', 'now', { 'kitten', 'cat', 'pet' });
 INSERT INTO plays (id, game, players, scores) VALUES ('123-afde', 'quake', 3, [17, 4, 2]);

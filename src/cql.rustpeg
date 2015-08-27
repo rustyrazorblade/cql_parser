@@ -121,6 +121,7 @@ rbracket = "}" __
 if = "if"i __
 colon = ":" __
 semi = ";" __
+dash = "-"
 
 if_clause = if if_condition ++ "and"
 if_condition = (field eq placeholder_old) /
@@ -194,3 +195,12 @@ eol
   / "\r"
   / "\u{2028}"
   / "\u{2029}"
+
+hex = [0-9a-fA-F]
+
+#[pub]
+uuid -> Value
+    = hex{8} dash hex{4} dash hex{4} dash hex{4} dash hex{12}
+    {
+        Value::UUID(match_str.to_string())
+    }
