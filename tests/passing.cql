@@ -41,6 +41,7 @@ INSERT INTO users (userid, password) VALUES ('user4', 'ch@ngem3c');
 // LWT
 insert into users (name, age) values (?, ?) if not exists
 
+// updates
 update blah using ttl 60 set bal = ? where k = ?
 update men set bal = ? where k = ? if bal = ?
 update men set bal = ? where k = ? and v = ?
@@ -65,6 +66,7 @@ update whatever set k = k + 1 where bacon = ?
 
 // deletes
 delete from blah where x = ?
+delete from blah where x = 1
 DELETE favs['author'] FROM users WHERE id = 'jsmith'
 DELETE scores[1] FROM plays WHERE id = '123-afde';
 DELETE FROM NerdMovies USING TIMESTAMP 1240003134 WHERE movie = 'Serenity';

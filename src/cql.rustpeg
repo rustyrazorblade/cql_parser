@@ -76,7 +76,7 @@ predicates = __ predicate ++ and __
 
 #[pub]
 predicate -> Predicate
-    = field:field op:op value
+    = field:field __ op:op __ value
     { Predicate::new(field, op) }
 
 op -> String

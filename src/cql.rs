@@ -241,3 +241,8 @@ fn test_predicate_string() {
 fn test_where_string() {
     cql::where_clause("WHERE k = 'test'").unwrap();
 }
+
+#[test]
+fn test_where_int() {
+    cql::where_clause("where k = 1").unwrap();
+}
