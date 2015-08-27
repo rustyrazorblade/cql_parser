@@ -185,6 +185,11 @@ collection_mutation -> String
     = field eq field (plus / minus) collection_literal
     { match_str.to_string() }
 
+#[pub]
+collection_update -> String
+    = field lbrace value rbrace __ eq __ value
+    { match_str.to_string() }
+
 collection_literal -> Value
     = map_literal / set_literal / list_literal
 

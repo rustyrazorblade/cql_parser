@@ -288,3 +288,8 @@ fn test_set() {
 fn test_collection_mutation() {
     let p = cql::collection_mutation("favs = favs +  { 'movie' : 'Cassablanca' }").unwrap();
 }
+
+#[test]
+fn test_collection_update() {
+    let p = cql::collection_update("favs[0] = 'bacon'").unwrap();
+}
