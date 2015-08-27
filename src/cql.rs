@@ -231,3 +231,12 @@ fn test_quoted_string() {
 fn test_quoted_string_with_escaped_quote() {
     cql::quoted_string("'some text ''bacon'' '").unwrap();
 }
+
+// #[test]
+// fn test_predicate_string() {
+// }
+
+#[test]
+fn test_where_string() {
+    cql::quoted_string("where k = 'test'").unwrap();
+}
