@@ -83,8 +83,9 @@ predicate -> Predicate
     = field:field __ op:op __ value
     { Predicate::new(field, op) }
 
+#[pub]
 op -> String
-    = ('=' / '<' / '>' / '<=' / '>=' / "contains"i / "contains key"i)
+    = ("<="/ ">=" / "=" / "<" / ">" /  "contains"i / "contains key"i)
     {  match_str.to_string() }
 
 
