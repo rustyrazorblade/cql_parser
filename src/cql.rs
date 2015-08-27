@@ -53,6 +53,7 @@ pub enum Value {
     NamedPlaceHolder(String),
     Map(String),
     Set(String),
+    List(String),
 }
 
 

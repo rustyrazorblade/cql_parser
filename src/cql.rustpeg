@@ -136,6 +136,8 @@ if = "if"i __
 colon = ":" __
 semi = ";" __
 dash = "-"
+lbrace = "["
+rbrace = "]"
 
 if_clause = if if_condition ++ "and"
 if_condition = (field eq placeholder_old) /
@@ -191,6 +193,12 @@ set_literal -> Value
         Value::Set(match_str.to_string())
     }
 
+#[pub]
+list_literal -> Value
+    = lbrace __
+      value ** comma
+      __ rbrace
+      { Value::List(match_str.to_string()) }
 
 #[pub]
 fields -> Fields
