@@ -65,14 +65,18 @@ update_statement -> ParsedCqlStatement
         }
 
 #[pub]
-where_clauses -> Vec<Predicate> = where __ predicates __
-    { Vec::new() }
+where_clauses -> Vec<Predicate> = where __ predicates:predicates __
+    { predicates }
 
 #[pub]
 where_clause -> Predicate
     = where __ pred:predicate __ { pred }
 
-predicates = __ predicate ++ and __
+predicates -> Vec<Predicate>
+    = __ predicates:predicate ++ and __
+    {
+        predicates
+    }
 
 #[pub]
 predicate -> Predicate
