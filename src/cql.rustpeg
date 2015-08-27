@@ -27,7 +27,7 @@ select_statement -> ParsedCqlStatement
     }
 
 insert_statement -> ParsedCqlStatement
-    = "insert" into  table:table __
+    = "insert"i into  table:table __
         "(" fields:fields ")"
         values "(" values:comma_separated_values  ")" __
         lwt:if_not_exists?
