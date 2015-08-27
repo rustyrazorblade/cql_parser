@@ -115,6 +115,7 @@ comma_separated_values -> Vec<Value>
 #[pub]
 value -> Value
      = i:map_literal { i }
+     / i:set_literal { i }
      / i:int __  { Value::Int(i) }
      /  i:placeholder { Value::Placeholder }
      / i:uuid { i }
