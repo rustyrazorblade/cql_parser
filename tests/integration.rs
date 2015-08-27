@@ -8,7 +8,7 @@ fn test_legal_queries() {
     let mut failed = 0;
     let mut passed = 0;
     let mut failed_queries = Vec::new();
-
+    
     for query in queries {
         // skip blank lines and lines that are a comment
         if query.trim() == "" {

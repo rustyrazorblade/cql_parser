@@ -68,6 +68,7 @@ update_statement -> ParsedCqlStatement
 where_clauses -> Vec<Predicate> = where __ predicates __
     { Vec::new() }
 
+#[pub]
 where_clause -> Predicate
     = where __ pred:predicate __ { pred }
 
@@ -217,9 +218,9 @@ string -> String
 
 #[pub]
 quoted_string -> Value
-    = single_quote
+    = __ single_quote
       s:string
-      single_quote
+      single_quote __
     {
         Value::String(s)
     }
