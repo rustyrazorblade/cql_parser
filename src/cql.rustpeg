@@ -106,6 +106,7 @@ comma_separated_values -> Vec<Value>
 value -> Value
      = i:int __  { Value::Int(i) }
      /  i:placeholder { Value::Placeholder }
+     / i:uuid { i }
 
 values = __ "values"i __
 update = "update"i __
