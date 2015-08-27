@@ -177,6 +177,9 @@ assignment -> String
 counter_op = field eq field (plus / minus)
                 (i:int { Value::Int(i) } / placeholder ) { () }
 
+collection_literal -> Value
+    = map_literal / set_literal / list_literal
+
 #[pub]
 map_literal -> Value
     = lbracket __
