@@ -8,3 +8,6 @@ name = "cql_parser"
 
 [dependencies.peg]
 git = "https://github.com/kevinmehall/rust-peg.git"
+
+[dependencies]
+uuid = "*"
