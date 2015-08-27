@@ -1,5 +1,8 @@
 use cql::*;
 
+
+// https://cassandra.apache.org/doc/cql3/CQL.html#createTableStmt
+
 #[pub]
 cql_statement -> ParsedCqlStatement
     = select_statement
@@ -89,6 +92,7 @@ placeholder -> Value = __ "?" __ { Value::Placeholder }
 and = __ "and"i __
 from = __ "from"i __
 where = __ "where"i  __
+single_quote = "'"
 
 star -> Fields
     = __ "*" __ { Fields::All }
@@ -194,11 +198,27 @@ eol
   / "\u{2028}"
   / "\u{2029}"
 
-hex = [0-9a-fA-F]
+hex -> String
+    = [0-9a-fA-F] { match_str.to_string() }
 
 #[pub]
 uuid -> Value
     = hex{8} dash hex{4} dash hex{4} dash hex{4} dash hex{12}
     {
         Value::UUID(match_str.to_string())
+    }
+
+string -> String
+    = ([^\'])*
+    {
+        match_str.to_string()
+    }
+
+#[pub]
+quoted_string -> String
+    = single_quote
+      s:string
+      single_quote
+    {
+        s
     }

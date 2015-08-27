@@ -223,6 +223,11 @@ fn test_uuid() {
 }
 
 #[test]
-fn test_text() {
+fn test_quoted_string() {
+    cql::quoted_string("'some text'").unwrap();
+}
 
+#[test]
+fn test_quoted_string_with_escaped_quote() {
+    cql::quoted_string("'some text ''bacon'' '").unwrap();
 }
