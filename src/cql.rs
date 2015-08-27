@@ -246,3 +246,8 @@ fn test_where_string() {
 fn test_where_int() {
     cql::where_clause("where k = 1").unwrap();
 }
+
+#[test]
+fn test_complex_where_clauses() {
+    cql::where_clauses("WHERE event_type = 'myEvent' AND time > '2011-02-03' AND time <= '2012-01-01'").unwrap();
+}
