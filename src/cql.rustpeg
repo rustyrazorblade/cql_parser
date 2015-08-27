@@ -177,6 +177,14 @@ assignment -> String
 counter_op = field eq field (plus / minus)
                 (i:int { Value::Int(i) } / placeholder ) { () }
 
+// id = id + <collection-literal> and id[value1] = value2
+// Please refer to the relevant section for more details.
+
+#[pub]
+collection_mutation -> String
+    = field eq field (plus / minus) collection_literal
+    { match_str.to_string() }
+
 collection_literal -> Value
     = map_literal / set_literal / list_literal
 

@@ -283,3 +283,8 @@ fn test_set() {
         _ => { panic!("Wrong type, expected Map") }
     };
 }
+
+#[test]
+fn test_collection_mutation() {
+    let p = cql::collection_mutation("favs = favs +  { 'movie' : 'Cassablanca' }").unwrap();
+}
