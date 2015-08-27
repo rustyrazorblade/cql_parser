@@ -169,9 +169,11 @@ counter_op = field eq field (plus / minus)
                 (i:int { Value::Int(i) } / placeholder ) { () }
 
 #[pub]
-map_literal = lbracket __
-              (value __ colon __ value) ++ comma
-              __ rbracket
+map_literal -> Value
+    = lbracket __
+      (value __ colon __ value) ++ comma
+      __ rbracket
+      { Value::Map(match_str.to_string())  }
 
 #[pub]
 fields -> Fields

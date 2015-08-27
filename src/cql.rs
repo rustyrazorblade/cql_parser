@@ -50,7 +50,8 @@ pub enum Value {
     Expression(String),
     // in a prepared statement ?
     Placeholder,
-    NamedPlaceHolder(String)
+    NamedPlaceHolder(String),
+    Map(String),
 }
 
 
@@ -266,4 +267,8 @@ fn test_op() {
 #[test]
 fn test_map() {
     let p = cql::map_literal("{ 'fruit' : 'apple', 'band' : 'Beatles' }").unwrap();
+    match p {
+        Value::Map(m) => (),
+        _ => { panic!("Wrong type, expected Map") }
+    };
 }
