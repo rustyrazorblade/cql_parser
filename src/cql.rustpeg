@@ -163,8 +163,13 @@ asc = "asc"i
 desc = "desc"i
 order_direction = asc / desc
 
+// TODO pull each of the assignment types out into
+// dedicated rules that return an Assignment type
 #[pub]
-assignment = (field eq placeholder_old) / counter_op
+assignment -> String
+    = (field eq value)  { match_str.to_string() }
+    / counter_op   { match_str.to_string() }
+
 
 #[pub]
 counter_op = field eq field (plus / minus)
