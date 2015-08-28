@@ -11,8 +11,8 @@ cql_statement -> ParsedCqlStatement
     / update_statement
 
 select_statement -> ParsedCqlStatement
-    = select
-      fields:fields_or_star
+    = select __
+      fields:fields_or_star __
       from table:table
       where_clauses:where_clauses?
       order_by:order_by_clause?
@@ -101,6 +101,8 @@ and = __ "and"i __
 from = __ "from"i __
 where = __ "where"i  __
 single_quote = "'"
+lparen = "("
+rparen = ")"
 
 star -> Fields
     = __ "*" __ { Fields::All }
@@ -231,7 +233,7 @@ fields -> Fields
 
 #[pub]
 fields_or_star -> Fields
-    = fields / star
+    = count / fields / star 
 
 table -> String
     = [a-zA-Z_]+ __  { match_str.to_string() }
@@ -280,4 +282,12 @@ quoted_string -> Value
       single_quote __
     {
         Value::String(s)
+    }
+
+#[pub]
+count -> Fields
+    = "count"i
+      lparen __ ("*" / "1")  __  rparen
+    {
+        Fields::Count
     }

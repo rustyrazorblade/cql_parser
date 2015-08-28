@@ -22,7 +22,8 @@ pub enum ParsedCqlStatement {
 #[derive(Clone, Debug)]
 pub enum Fields {
     All,
-    Named(Vec<String>)
+    Named(Vec<String>),
+    Count,
 }
 
 #[derive(Clone, Debug)]
@@ -293,4 +294,10 @@ fn test_collection_mutation() {
 #[test]
 fn test_collection_update() {
     let p = cql::collection_update("favs[0] = 'bacon'").unwrap();
+}
+
+#[test]
+fn test_count() {
+    cql::count("count(*)").unwrap();
+    cql::count("count(1)").unwrap();
 }
