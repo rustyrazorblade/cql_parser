@@ -75,5 +75,6 @@ DELETE favs['author'] FROM users WHERE id = 'jsmith'
 DELETE scores[1] FROM plays WHERE id = '123-afde';
 DELETE FROM NerdMovies USING TIMESTAMP 1240003134 WHERE movie = 'Serenity';
 DELETE name FROM users WHERE userid = 'user1';
+DELETE name, age FROM users WHERE userid = 'user1';
 
 DELETE phone FROM Users WHERE userid IN (C73DE1D3-AF08-40F3-B124-3FF3E5109F22, B70DE1D0-9908-4AE3-BE34-5573E5B09F14);

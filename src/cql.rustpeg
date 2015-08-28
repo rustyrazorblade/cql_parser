@@ -47,12 +47,17 @@ insert_statement -> ParsedCqlStatement
       }
 
 delete_statement -> ParsedCqlStatement
-    = delete from table:table
+    = delete delete_from table:table
       where_clauses:where_clauses semi?
       {
         let d = DeleteStatement::new(table);
         ParsedCqlStatement::Delete(d)
       }
+
+#[pub]
+delete_from -> Fields
+    = fields:fields from { fields }
+    / from { Fields::None }
 
 update_statement -> ParsedCqlStatement
     = update table:table
@@ -91,10 +96,11 @@ op -> String
     {  match_str.to_string() }
 
 
+
 plus = "+" __
 minus = "-" __
 comma = __ "," __
-delete = "delete" __
+delete = "delete"i __
 placeholder_old = __ "?" __
 placeholder -> Value = __ "?" __ { Value::Placeholder }
 and = __ "and"i __

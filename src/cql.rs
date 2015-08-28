@@ -2,6 +2,8 @@ use std::collections::HashMap;
 
 peg_file! cql("cql.rustpeg");
 
+
+
 pub fn parse(stmt: &str) -> Result<ParsedCqlStatement, &str> {
     let result = match cql::cql_statement(stmt) {
         Ok(x) => Ok(x),
@@ -24,6 +26,7 @@ pub enum Fields {
     All,
     Named(Vec<String>),
     Count,
+    None,
 }
 
 #[derive(Clone, Debug)]
@@ -300,4 +303,39 @@ fn test_collection_update() {
 fn test_count() {
     cql::count("count(*)").unwrap();
     cql::count("count(1)").unwrap();
+}
+
+// macro_rules! assert_enum {
+//     () => {
+//
+//     };
+// }
+
+
+#[test]
+fn test_delete_from_clause() {
+    match cql::delete_from("from").unwrap() {
+        Fields::None => {
+
+        },
+        _ => {
+            panic!("wrong type");
+        }
+    };
+    match cql::delete_from("field from").unwrap() {
+        Fields::Named(x) => {
+
+        },
+        _ => {
+            panic!("wrong type");
+        }
+    };
+    match cql::delete_from("field, field2 from").unwrap() {
+        Fields::Named(x) => {
+            assert_eq!(2, x.len())  ;
+        },
+        _ => {
+            panic!("wrong type");
+        }
+    };
 }
