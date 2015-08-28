@@ -16,7 +16,9 @@ select_statement -> ParsedCqlStatement
       from table:table
       where_clauses:where_clauses?
       order_by:order_by_clause?
-      limit:limit_clause? semi?
+      limit:limit_clause?
+      __ allow_filtering:allow_filtering? __
+      semi?
     {
         let s = SelectStatement::new(fields,
                                      table,
@@ -138,6 +140,7 @@ semi = ";" __
 dash = "-"
 lbrace = "["
 rbrace = "]"
+allow_filtering = "allow"i __ "filtering"i
 
 if_clause = if if_condition ++ "and"
 if_condition = (field eq placeholder_old) /
