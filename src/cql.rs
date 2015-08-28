@@ -29,6 +29,7 @@ pub enum Fields {
     None,
 }
 
+
 #[derive(Clone, Debug)]
 pub struct Predicate {
     pub field: String,
@@ -338,4 +339,8 @@ fn test_delete_from_clause() {
             panic!("wrong type");
         }
     };
+}
+
+fn test_in_clause() {
+
 }

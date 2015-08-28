@@ -88,14 +88,24 @@ predicates -> Vec<Predicate>
 #[pub]
 predicate -> Predicate
     = field:field __ op:op __ value
-    { Predicate::new(field, op) }
+        { Predicate::new(field, op) }
+    / field:field __ in_clause
+    { Predicate::new(field, "in".to_string())}
 
 #[pub]
 op -> String
     = ("<="/ ">=" / "=" / "<" / ">" /  "contains"i / "contains key"i)
     {  match_str.to_string() }
 
-
+#[pub]
+in_clause -> String
+    = "in"i __
+        lparen __
+        values:value ++ comma
+        __ rparen
+        {
+            "fixme".to_string()
+        }
 
 plus = "+" __
 minus = "-" __
