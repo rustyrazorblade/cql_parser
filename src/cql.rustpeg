@@ -233,7 +233,7 @@ fields -> Fields
 
 #[pub]
 fields_or_star -> Fields
-    = count / fields / star 
+    = count / fields / star
 
 table -> String
     = [a-zA-Z_]+ __  { match_str.to_string() }
