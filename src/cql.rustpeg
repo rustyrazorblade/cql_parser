@@ -110,7 +110,13 @@ star -> Fields
 select =  "select"i __
 
 field -> String
-    = __ [a-zA-Z0-9_]+ __ { match_str.trim().to_string() }
+    = __ i:raw_field __ alias? __ { i }
+
+raw_field -> String
+    = [a-zA-Z0-9_]+ { match_str.to_string() }
+
+alias -> String
+    = __ "as"i __ i:raw_field  { i }
 
 #[pub]
 comma_separated_values -> Vec<Value>
@@ -287,7 +293,7 @@ quoted_string -> Value
 #[pub]
 count -> Fields
     = "count"i
-      lparen __ ("*" / "1")  __  rparen
+      lparen __ ("*" / "1")  __  rparen alias?
     {
         Fields::Count
     }
