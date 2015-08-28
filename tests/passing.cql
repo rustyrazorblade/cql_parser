@@ -41,6 +41,10 @@ INSERT INTO users (userid, password) VALUES ('user4', 'ch@ngem3c');
 // LWT
 insert into users (name, age) values (?, ?) if not exists
 
+// UDT
+INSERT INTO user_profiles(login, first_name, last_name, email, addresses) VALUES ('tsmith', 'Tom', 'Smith', 'tsmith@gmail.com',{ 'home': { street: '1021 West 4th St. #202',city: 'San Fransisco', zip: 94110 }});
+
+
 // updates
 update blah using ttl 60 set bal = ? where k = ?
 update men set bal = ? where k = ? if bal = ?
